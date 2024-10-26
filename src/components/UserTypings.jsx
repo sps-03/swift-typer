@@ -22,22 +22,22 @@ const UserTypings = ({ typedText, generatedText, className = "" }) => {
   const remainingCharacters = generatedText.substring(typedTextLength).split("");
 
   return (
-    <div className={className}>
+    <div className={`${className} whitespace-pre-wrap`}>
       {typedCharacters.map((char, index) => (
         <Character key={index} actual={char} expected={generatedText[index]} />
       ))}
 
-      <span className="relative">
-        <motion.span
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          exit={{ opacity: 1 }}
-          transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
-          className="absolute inset-0 bg-secondary/30"
-        />
+      <motion.span
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        exit={{ opacity: 1 }}
+        transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+        className="bg-secondary/30 text-tertiary"
+      >
+        {generatedText[typedTextLength]}
+      </motion.span>
 
-        <span className="relative z-10 text-tertiary">{generatedText[typedTextLength]}</span>
-      </span>
+      <span className="relative z-10 -ml-[19px] text-tertiary">{generatedText[typedTextLength]}</span>
 
       {remainingCharacters.slice(1).map((char, index) => (
         <Character key={typedTextLength + index} actual={""} expected={char} />
